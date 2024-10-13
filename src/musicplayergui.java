@@ -1,3 +1,9 @@
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -5,12 +11,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 
 public class musicplayergui extends JFrame {
+    public static final Color FRAME_COLOR = Color.black;
+    public static final Color TEXT_COLOR = Color.white;
+
     public musicplayergui() {
         // Call the JFrame constructor and set the window title
         super("Music Player");
 
         // Set the size of the window
-        setSize(600, 600);
+        setSize(400, 600);
 
         // Specify the operation when the window is closed
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -25,12 +34,27 @@ public class musicplayergui extends JFrame {
         setLayout(null);
 
         addGuiComponents();
+
+        getContentPane().setBackground(FRAME_COLOR);
     }
 
     private void addGuiComponents() {
         addToolbar();
 
+
+
     }
+
+    private ImageIcon loadImage(String imagePath){
+        try{
+            BufferedImage image =  ImageIO.read(new File(imagePath));
+            return new ImageIcon(image);
+        }catch(Exeption e){
+            e.printStackTrace();
+
+        }
+    }
+
 
     private void addToolbar() {
         JToolBar toolBar = new JToolBar();
