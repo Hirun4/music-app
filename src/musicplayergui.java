@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JToolBar;
 
 public class musicplayergui extends JFrame {
     public musicplayergui() {
@@ -19,7 +20,18 @@ public class musicplayergui extends JFrame {
 
         // Set the layout to null to allow absolute positioning
         setLayout(null);
-    }
 
+        addGuiComponents();
+    }
+private void addGuiComponents(){
+    addToolbar();
+
+}
+private void addToolbar(){
+    JToolBar toolBar =  new JToolBar();
+    toolBar.setBounds(0,0,getWidth(),20);
+    toolBar.setFloatable(false);
+    add(toolBar);
+}
     
 }
