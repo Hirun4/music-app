@@ -1,4 +1,7 @@
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 
 public class musicplayergui extends JFrame {
@@ -23,15 +26,33 @@ public class musicplayergui extends JFrame {
 
         addGuiComponents();
     }
-private void addGuiComponents(){
-    addToolbar();
 
-}
-private void addToolbar(){
-    JToolBar toolBar =  new JToolBar();
-    toolBar.setBounds(0,0,getWidth(),20);
-    toolBar.setFloatable(false);
-    add(toolBar);
-}
-    
+    private void addGuiComponents() {
+        addToolbar();
+
+    }
+
+    private void addToolbar() {
+        JToolBar toolBar = new JToolBar();
+        toolBar.setBounds(0, 0, getWidth(), 20);
+        toolBar.setFloatable(false);
+
+        JMenuBar menuBar = new JMenuBar();
+        toolBar.add(menuBar);
+        JMenu songMenu = new JMenu("Song");
+        menuBar.add(songMenu);
+
+        JMenuItem loadsong = new JMenuItem("Load Song");
+        songMenu.add(loadsong);
+
+        JMenu playlistMenu = new JMenu("Playlist");
+        menuBar.add(playlistMenu);
+
+        JMenuItem createPlaylist = new JMenuItem("create playlist");
+        playlistMenu.add(createPlaylist);
+
+        JMenuItem loadPlaylist = new JMenuItem("Load Playlist");
+        playlistMenu.add(loadPlaylist);
+        add(toolBar);
+    }
 }
