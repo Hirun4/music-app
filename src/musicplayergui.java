@@ -1,11 +1,14 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -20,8 +23,13 @@ import javax.swing.text.StyledEditorKit.BoldAction;
 public class musicplayergui extends JFrame {
     public static final Color FRAME_COLOR = Color.black;
     public static final Color TEXT_COLOR = Color.white;
-    
 
+    private MusicPlayer musicPlayer;
+
+    private JFileChooser jFileChooser;
+    private JLabel songTitle,songArtist;
+
+    
     public musicplayergui() {
         // Call the JFrame constructor and set the window title
         super("Music Player");
@@ -43,7 +51,13 @@ public class musicplayergui extends JFrame {
 
         addGuiComponents();
 
+        musicPlayer = new MusicPlayer();
+
         getContentPane().setBackground(FRAME_COLOR);
+
+        jFileChooser = new JFileChooser();
+
+    jFileChooser.setCurrentDirectory(new File("src\\assets"));
     }
 
     private void addGuiComponents() {
@@ -53,14 +67,14 @@ public class musicplayergui extends JFrame {
         songImage.setBounds(0, 50, getWidth() - 20, 225);
         add(songImage);
 
-        JLabel songTitle = new JLabel("Song Title");
+         songTitle = new JLabel("Song Title");
         songTitle.setBounds(0, 285, getWidth() - 10, 30);
         songTitle.setFont(new Font("Dailog", Font.BOLD, 24));
         songTitle.setForeground(TEXT_COLOR);
         songTitle.setHorizontalAlignment(SwingConstants.CENTER);
         add(songTitle);
 
-        JLabel songArtist = new JLabel("Artist");
+         songArtist = new JLabel("Artist");
         songArtist.setBounds(0, 315, getWidth() - 10, 30);
         songArtist.setFont(new Font("Dailog", Font.BOLD, 24));
         songArtist.setForeground(TEXT_COLOR);
@@ -113,6 +127,8 @@ public class musicplayergui extends JFrame {
         playbackBtns.add(nextButton);
 
         add(playbackBtns);
+
+
     }
 
     private void addToolbar() {
@@ -126,6 +142,18 @@ public class musicplayergui extends JFrame {
         menuBar.add(songMenu);
 
         JMenuItem loadsong = new JMenuItem("Load Song");
+        loadsong.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                jFileChooser.showOpenDialog(musicplayergui.this);
+                File selectedFile = jFileChooser.getSelectedFile();
+                if(selectedFile != null){
+                    Song song = new Song(selectedFile.getPath());
+                    musicPlayer.loadSong(song);
+                    updateSongTitleAndArtist(song);
+                }
+            }
+        });
         songMenu.add(loadsong);
 
         JMenu playlistMenu = new JMenu("Playlist");
@@ -138,4 +166,11 @@ public class musicplayergui extends JFrame {
         playlistMenu.add(loadPlaylist);
         add(toolBar);
     }
+
+    private void updateSongTitleAndArtist(Song song){
+        songTitle.setText(song.getSongTitle());
+        songArtist.setText(song.getSongArtist());
+    }
+
+
 }

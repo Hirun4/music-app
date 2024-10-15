@@ -2,6 +2,10 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/jaudiotagger-3.0.1.jar",
+        "lib/jlayer-1.0.1.jar",
+        "lib/mp3agic-0.9.0.jar"
     ]
 }
+
+
