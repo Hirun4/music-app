@@ -22,6 +22,7 @@ public class Song {
         try {
             mp3File = new Mp3File(filePath);
             frameRatePerMilliseconds = (double) mp3File.getFrameCount() / mp3File.getLengthInMilliseconds();
+            songLength = converToSongLengthFormat();
 
             AudioFile audioFile = AudioFileIO.read(new File(filePath));
 
@@ -42,6 +43,15 @@ public class Song {
 
     }
 
+    private String converToSongLengthFormat() {
+        long minutes = mp3File.getLengthInSeconds() / 60;
+        long seconds = mp3File.getLengthInSeconds() % 60;
+        String formattedTime = String.format("%02d:%02d", minutes, seconds);
+
+        return formattedTime;
+    }
+
+    // getters
     public String getSongTitle() {
         return songTitle;
     }
@@ -57,10 +67,12 @@ public class Song {
     public String getFilePath() {
         return filePath;
     }
-    public Mp3File getMp3File(){
+
+    public Mp3File getMp3File() {
         return mp3File;
     }
-public double getFrameRatePerMilliseconds(){
-    return frameRatePerMilliseconds;
-}
+
+    public double getFrameRatePerMilliseconds() {
+        return frameRatePerMilliseconds;
+    }
 }

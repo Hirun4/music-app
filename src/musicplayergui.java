@@ -177,7 +177,9 @@ public class musicplayergui extends JFrame {
                     Song song = new Song(selectedFile.getPath());
                     musicPlayer.loadSong(song);
                     updateSongTitleAndArtist(song);
+                    updatePlaybackSlider(song);
                     enablePauseButtonDisablePlayButton();
+
                     
                 }
             }
@@ -203,13 +205,21 @@ public class musicplayergui extends JFrame {
     private void updatePlaybackSlider(Song song){
         playbackSlider.setMaximum(song.getMp3File().getFrameCount());
 
-        Hashtable<Integer,JLable> lableTable = new Hashtable<>();
+        Hashtable<Integer,JLabel> lableTable = new Hashtable<>();
 
         JLabel  labelBeginning = new JLabel("00.00");
-        labelBeginning.setFont(new Font("Dialog", Fong.Bold ,18));
+        labelBeginning.setFont(new Font("Dialog", Font.BOLD ,18));
         labelBeginning.setForeground(TEXT_COLOR);
 
         JLabel labelEnd = new JLabel(song.getSongLength());
+        labelEnd.setFont(new Font("Dialog", Font.BOLD ,18));
+        labelEnd.setForeground(TEXT_COLOR);
+
+        lableTable.put(0,labelBeginning);
+        lableTable.put(song.getMp3File().getFrameCount(),labelEnd);
+
+        playbackSlider.setLabelTable(lableTable);
+        playbackSlider.setPaintLabels(true);
 
 
     }
