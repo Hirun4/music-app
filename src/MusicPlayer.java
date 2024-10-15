@@ -41,6 +41,9 @@ public void stopSong(){
     }
 }
 public void PlayCurrentSong(){
+    if (currentSong == null) return;
+        
+    
     try{
         //read mp3 audio data
         FileInputStream fileInputStream = new FileInputStream(currentSong.getFilePath());
@@ -84,8 +87,8 @@ public void playbackStarted(PlaybackEvent evt) {
 public void playbackFinished(PlaybackEvent evt) {
     System.out.println("playback finished");
     if(isPaused){
-        currentFrame += evt.getFrame();
-        System.out.println("stopped @" + currentFrame);
+        currentFrame += (int) ((double) evt.getFrame() * currentSong.getFrameRatePerMilliseconds());
+        
     }
     
 }

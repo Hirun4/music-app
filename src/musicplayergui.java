@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -32,6 +33,8 @@ public class musicplayergui extends JFrame {
 
     private JPanel playbackBtns;
 
+    private JSlider playbackSlider;
+
     public musicplayergui() {
         // Call the JFrame constructor and set the window title
         super("Music Player");
@@ -54,9 +57,11 @@ public class musicplayergui extends JFrame {
        
 
         jFileChooser = new JFileChooser();
+
         jFileChooser.setCurrentDirectory(new File("src\\assets"));
 
         jFileChooser.setFileFilter(new FileNameExtensionFilter("MP3", "mp3"));
+
         addGuiComponents();
 
         musicPlayer = new MusicPlayer();
@@ -89,7 +94,7 @@ public class musicplayergui extends JFrame {
         songArtist.setHorizontalAlignment(SwingConstants.CENTER);
         add(songArtist);
 
-        JSlider playbackSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+         playbackSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
         playbackSlider.setBounds(getWidth() / 2 - 300 / 2, 365, 300, 40);
         playbackSlider.setBackground(null);
         add(playbackSlider);
@@ -193,6 +198,20 @@ public class musicplayergui extends JFrame {
     private void updateSongTitleAndArtist(Song song) {
         songTitle.setText(song.getSongTitle());
         songArtist.setText(song.getSongArtist());
+    }
+
+    private void updatePlaybackSlider(Song song){
+        playbackSlider.setMaximum(song.getMp3File().getFrameCount());
+
+        Hashtable<Integer,JLable> lableTable = new Hashtable<>();
+
+        JLabel  labelBeginning = new JLabel("00.00");
+        labelBeginning.setFont(new Font("Dialog", Fong.Bold ,18));
+        labelBeginning.setForeground(TEXT_COLOR);
+
+        JLabel labelEnd = new JLabel(song.getSongLength());
+
+
     }
 
     private void enablePauseButtonDisablePlayButton() {

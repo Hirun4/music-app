@@ -4,6 +4,9 @@ import javax.swing.text.html.HTML.Tag;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.Tag;
+
+import com.mpatric.mp3agic.Mp3File;
+
 import org.jaudiotagger.tag.FieldKey;
 
 public class Song {
@@ -11,10 +14,15 @@ public class Song {
     private String songArtist;
     private String songLength;
     private String filePath;
+    private Mp3File mp3File;
+    private double frameRatePerMilliseconds;
 
     public Song(String filePath) {
         this.filePath = filePath;
         try {
+            mp3File = new Mp3File(filePath);
+            frameRatePerMilliseconds = (double) mp3File.getFrameCount() / mp3File.getLengthInMilliseconds();
+
             AudioFile audioFile = AudioFileIO.read(new File(filePath));
 
             org.jaudiotagger.tag.Tag tag = audioFile.getTag();
@@ -49,5 +57,10 @@ public class Song {
     public String getFilePath() {
         return filePath;
     }
-
+    public Mp3File getMp3File(){
+        return mp3File;
+    }
+public double getFrameRatePerMilliseconds(){
+    return frameRatePerMilliseconds;
+}
 }
