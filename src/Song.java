@@ -3,8 +3,6 @@ import java.io.File;
 import javax.swing.text.html.HTML.Tag;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.tag.Tag;
-
 import com.mpatric.mp3agic.Mp3File;
 
 import org.jaudiotagger.tag.FieldKey;

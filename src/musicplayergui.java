@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Hashtable;
@@ -22,7 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
-public class musicplayergui extends JFrame {
+public class MusicPlayerGUI extends JFrame {
     public static final Color FRAME_COLOR = Color.black;
     public static final Color TEXT_COLOR = Color.white;
 
@@ -34,8 +36,9 @@ public class musicplayergui extends JFrame {
     private JPanel playbackBtns;
 
     private JSlider playbackSlider;
+    
 
-    public musicplayergui() {
+    public MusicPlayerGUI() {
         // Call the JFrame constructor and set the window title
         super("Music Player");
 
@@ -54,7 +57,9 @@ public class musicplayergui extends JFrame {
         // Set the layout to null to allow absolute positioning
         setLayout(null);
 
-       
+        getContentPane().setBackground(FRAME_COLOR);
+
+        musicPlayer = new MusicPlayer(this);
 
         jFileChooser = new JFileChooser();
 
@@ -63,13 +68,6 @@ public class musicplayergui extends JFrame {
         jFileChooser.setFileFilter(new FileNameExtensionFilter("MP3", "mp3"));
 
         addGuiComponents();
-
-        musicPlayer = new MusicPlayer();
-
-        getContentPane().setBackground(FRAME_COLOR);
-
-       
-
         
     }
 
@@ -97,6 +95,29 @@ public class musicplayergui extends JFrame {
          playbackSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
         playbackSlider.setBounds(getWidth() / 2 - 300 / 2, 365, 300, 40);
         playbackSlider.setBackground(null);
+        playbackSlider.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+               musicPlayer.pauseSong();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+              JSlider Source = (JSlider) e.getSource();
+
+              int frame = Source.getValue();
+
+              musicPlayer.setCurrentFrame(frame);
+
+              musicPlayer.setCurrentTimeInMilli((int) (frame / (2.08 * musicPlayer.getCurrentSong().getFrameRatePerMilliseconds())));
+
+              musicPlayer.PlayCurrentSong();
+
+              enablePauseButtonDisablePlayButton(); 
+            }
+            
+        });
         add(playbackSlider);
 
         addPlaybackBtns();
@@ -171,7 +192,7 @@ public class musicplayergui extends JFrame {
         loadsong.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int result = jFileChooser.showOpenDialog(musicplayergui.this);
+                int result = jFileChooser.showOpenDialog(MusicPlayerGUI.this);
                 File selectedFile = jFileChooser.getSelectedFile();
                 if (result == JFileChooser.APPROVE_OPTION && selectedFile != null) {
                     Song song = new Song(selectedFile.getPath());
@@ -195,6 +216,10 @@ public class musicplayergui extends JFrame {
         JMenuItem loadPlaylist = new JMenuItem("Load Playlist");
         playlistMenu.add(loadPlaylist);
         add(toolBar);
+    }
+
+    public void setPlaybackSliderValue(int frame){
+        playbackSlider.setValue(frame);
     }
 
     private void updateSongTitleAndArtist(Song song) {
