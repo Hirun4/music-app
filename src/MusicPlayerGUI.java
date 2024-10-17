@@ -12,8 +12,8 @@ import java.util.Hashtable;
 
 public class MusicPlayerGUI extends JFrame {
     // color configurations
-    public static final Color FRAME_COLOR = Color.BLACK;
-    public static final Color TEXT_COLOR = Color.WHITE;
+    public static final Color FRAME_COLOR = Color.RED;
+    public static final Color TEXT_COLOR = Color.green;
 
     private MusicPlayer musicPlayer;
 
