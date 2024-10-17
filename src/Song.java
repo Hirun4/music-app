@@ -68,3 +68,18 @@ public class Song {
     public Mp3File getMp3File(){return mp3File;}
     public double getFrameRatePerMilliseconds(){return frameRatePerMilliseconds;}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

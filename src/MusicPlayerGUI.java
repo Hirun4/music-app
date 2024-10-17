@@ -51,7 +51,7 @@ public class MusicPlayerGUI extends JFrame {
         jFileChooser = new JFileChooser();
 
         // set a default path for file explorer
-        jFileChooser.setCurrentDirectory(new File("src/assets"));
+        jFileChooser.setCurrentDirectory(new File("src\\assets"));
 
         // filter file chooser to only see .mp3 files
         jFileChooser.setFileFilter(new FileNameExtensionFilter("MP3", "mp3"));
@@ -64,7 +64,7 @@ public class MusicPlayerGUI extends JFrame {
         addToolbar();
 
         // load record image
-        JLabel songImage = new JLabel(loadImage("src/assets/record.png"));
+        JLabel songImage = new JLabel(loadImage("src\\assets\\record.png"));
         songImage.setBounds(0, 50, getWidth() - 20, 225);
         add(songImage);
 
@@ -188,7 +188,7 @@ public class MusicPlayerGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jFileChooser = new JFileChooser();
                 jFileChooser.setFileFilter(new FileNameExtensionFilter("Playlist", "txt"));
-                jFileChooser.setCurrentDirectory(new File("src/assets"));
+                jFileChooser.setCurrentDirectory(new File("src\\assets"));
 
                 int result = jFileChooser.showOpenDialog(MusicPlayerGUI.this);
                 File selectedFile = jFileChooser.getSelectedFile();
@@ -213,7 +213,7 @@ public class MusicPlayerGUI extends JFrame {
         playbackBtns.setBackground(null);
 
         // previous button
-        JButton prevButton = new JButton(loadImage("src/assets/previous.png"));
+        JButton prevButton = new JButton(loadImage("src\\assets\\previous.png"));
         prevButton.setBorderPainted(false);
         prevButton.setBackground(null);
         prevButton.addActionListener(new ActionListener() {
@@ -226,7 +226,7 @@ public class MusicPlayerGUI extends JFrame {
         playbackBtns.add(prevButton);
 
         // play button
-        JButton playButton = new JButton(loadImage("src/assets/play.png"));
+        JButton playButton = new JButton(loadImage("src\\assets\\play.png"));
         playButton.setBorderPainted(false);
         playButton.setBackground(null);
         playButton.addActionListener(new ActionListener() {
@@ -242,7 +242,7 @@ public class MusicPlayerGUI extends JFrame {
         playbackBtns.add(playButton);
 
         // pause button
-        JButton pauseButton = new JButton(loadImage("src/assets/pause.png"));
+        JButton pauseButton = new JButton(loadImage("src\\assets\\pause.png"));
         pauseButton.setBorderPainted(false);
         pauseButton.setBackground(null);
         pauseButton.setVisible(false);
@@ -259,7 +259,7 @@ public class MusicPlayerGUI extends JFrame {
         playbackBtns.add(pauseButton);
 
         // next button
-        JButton nextButton = new JButton(loadImage("src/assets/next.png"));
+        JButton nextButton = new JButton(loadImage("src\\assets\\next.png"));
         nextButton.setBorderPainted(false);
         nextButton.setBackground(null);
         nextButton.addActionListener(new ActionListener() {
